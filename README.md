@@ -3,9 +3,11 @@ Project in NLP Course
 
 
 # Task List
-- [ ] Read the paper : Uploaded on [GitHub](https://github.com/sangamkotalwar/NLP-CQA-Summarization/blob/master/I17-1080.pdf)
+- [x] Read the paper : Uploaded on [GitHub](https://github.com/sangamkotalwar/NLP-CQA-Summarization/blob/master/I17-1080.pdf)
 - [ ] Get Dataset from Yahoo Answers
-  - Check status at [Yahoo Answers - Sangamesh's Account](https://webscope.sandbox.yahoo.com/myrequests.php)
+  - [x] Check status at [Yahoo Answers - Sangamesh's Account](https://webscope.sandbox.yahoo.com/myrequests.php) 
+  - [x] Permission granted to download dataset
+  - [ ] Download dataset
   
 # Deadlines
 Submission | Deadline

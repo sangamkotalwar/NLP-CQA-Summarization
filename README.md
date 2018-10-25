@@ -7,7 +7,7 @@ Project in NLP Course
 - [ ] Get Dataset from Yahoo Answers
   - [x] Check status at [Yahoo Answers - Sangamesh's Account](https://webscope.sandbox.yahoo.com/myrequests.php) 
   - [x] Permission granted to download dataset
-  - [ ] Download dataset
+  - [ ] Download [dataset](https://drive.google.com/open?id=1QppmizkKt7NULxvyacwe-KbeMZxDscrf)
   
 # Deadlines
 Submission | Deadline

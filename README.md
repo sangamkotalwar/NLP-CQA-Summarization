@@ -26,14 +26,14 @@ Project in NLP Course
 
 ## Rule Based Extractive Summarization using Gensim
 We cannot do extractive summarization using Gensim since the summarization function requires input should be a string, and must be longer than INPUT_MIN_LENGTH sentences for the summary to be extracted. And from [documentation](https://github.com/summanlp/gensim/blob/develop/gensim/summarization/summarizer.py#L17) we see that INPUT_MIN_LENGTH is 10 sentences. And none of our input data from <content> tag is longer like 10 sentenses. <b><i>So we cannot apply Gensim for lengthy question summarization for our curated data.</i></b>
-<br/>File can be found [here]() with name: RuleBasedExtractiveSummarizationUsingGensim.py
+<br/>File can be found [here](https://github.com/sangamkotalwar/NLP-CQA-Summarization/blob/master/RuleBasedExtractiveSummarizationUsingGensim.py) with name: RuleBasedExtractiveSummarizationUsingGensim.py
 <br/>When we run the code in command prompt:
   ```{python}
   python3 RuleBasedExtractiveSummarizationUsingGensim.py
   ```
   It gives blank output since we don't have any input text with number of sentences more than 10
   Here is the Output:<br/>
-  ![here](https://i.imgur.com/KTlPJMv.jpg)
+  ![Imgur](https://i.imgur.com/KTlPJMv.jpg?1)
 
 ## Deadlines
 Submission | Deadline

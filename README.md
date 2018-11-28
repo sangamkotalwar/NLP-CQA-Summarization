@@ -4,13 +4,13 @@ Project in NLP Course
 
 ## Task List
 - [x] Read the paper : Uploaded on [GitHub](https://github.com/sangamkotalwar/NLP-CQA-Summarization/blob/master/I17-1080.pdf)
-- [ ] Get Dataset from Yahoo Answers
+- [x] Get Dataset from Yahoo Answers
   - [x] Check status at [Yahoo Answers - Sangamesh's Account](https://webscope.sandbox.yahoo.com/myrequests.php) 
   - [x] Permission granted to download dataset
   - [x] Download [dataset](https://drive.google.com/open?id=1QppmizkKt7NULxvyacwe-KbeMZxDscrf)
-  - [x] Rule Based Extractive Summarization
-  - [x] Extractive Summarization using Gensim
-  - [ ] ROUGE-2 : Machine Learning based approach
+- [x] Rule Based Extractive Summarization
+- [x] Extractive Summarization using Gensim
+- [ ] ROUGE-2 : Machine Learning based approach
 
 ## Dataset 
 * Divided into subjects and content data. Sample data can be found by name - small_sample.xml <br/>

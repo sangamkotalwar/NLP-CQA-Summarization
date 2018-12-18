@@ -10,7 +10,8 @@ Project in NLP Course
   - [x] Download [dataset](https://drive.google.com/open?id=1QppmizkKt7NULxvyacwe-KbeMZxDscrf)
 - [x] Rule Based Extractive Summarization
 - [x] Extractive Summarization using Gensim
-- [ ] ROUGE-2 : Machine Learning based approach
+- [x] ROUGE-2 : Machine Learning based approach
+- [ ] Abstractive Summarization
 
 ## Dataset 
 * Divided into subjects and content data. Sample data can be found by name - small_sample.xml <br/>
@@ -40,6 +41,12 @@ When we run the code in command prompt:
   ![Rule based output](https://i.imgur.com/7XWYogk.jpg)
   
   Here we can see that since the lead question is itself the summary we actually are not getting a quite positive result. In some cases the question may actually have the complete essence of the content like the 3rd &4th one from the given output; but in most of the cases this is least likely.
+
+## Rule based approach 2
+
+  Tweaking with the occurances of "." and "?", we're able to find better results with Lead Sentence, Lead Question and Last Question. Other type of output can be seen here:<br/>
+  ![Rule based output 2](https://i.imgur.com/OxQOqjV.png)
+  Here we can see the changes in output and all of them are more good, in terms of human evaluation, than the previous.
   
 ## Extractive Summarization using Gensim
 
@@ -62,7 +69,21 @@ We're now able to extract summarization by tweaking with some parameteres of the
   ```
   ![Output 1 -Gensim](https://i.imgur.com/jMNr438.jpg?1)
   The first output does not correctly summarize the question but in the second one we're able to get the desired output. We don't say it to be completely corrrect but the output is giving some insight about the original content question. 
-  
+
+## Extractive Summarization : Machine Learning based approach : SVM
+We are able to classify the questions as positive or negative and then output the best possible summary using SVM with accuracy <b>66%.</b> <br/>
+
+The classification-based method predicts the sentence with the largest ROUGE-2 F-measure. In the training phase, we regarded the questions which had the highest ROUGE score and consisted of at least four words as positive instances. Other questions were used as negative instances.We adopted Support Vector Machine
+(SVM) (Suykens and Vandewalle, 1999) as a classifier.
+<br/>
+If the SVM classifies more than one sen- tence in a single input document as positive, then our method outputs the first question. In contrast, if the SVM classifies all questions in the input as negative, then the model outputs the first question. It outputs the first sentence if there is no question in the output. A sentence is regarded as a question if the last character is "?"
+<br/>When we run the code in command prompt:
+  ```python
+  python3 MachineLearningBasedApproch.py
+  ```
+  ![Output 3 - SVM](https://i.imgur.com/9gbUYuN.png)
+
+
 ## Deadlines
 Submission | Deadline
 -------|---------

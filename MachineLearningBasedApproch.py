@@ -2,7 +2,10 @@ import xml.etree.ElementTree as ET
 from rouge import Rouge
 import json
 import pandas as pd
-tree = ET.parse('contentsubject4866.xml', ET.XMLParser(encoding="utf-8"))
+from sklearn.model_selection import train_test_split
+from sklearn import svm
+import numpy as np
+tree = ET.parse('small_sample.xml', ET.XMLParser(encoding="utf-8"))
 root = tree.getroot()
 texts = []
 subjects = []
@@ -18,6 +21,7 @@ for subject in root.iter('subject'):
     subjects.append(subject.text)
 #print(type(text[:1]))
 texts = [str(x) for x in texts] #Converting all the content tags to string
+textsdummy = texts
 subjects = [str(x) for x in subjects]
 subjects = list(subjects)
 
@@ -163,10 +167,10 @@ rouge = Rouge()
 rouge2fLeadSentence = []
 rouge2fLeadQuestion = []
 rouge2fLastQuestion = []
-print(len(LeadSentence))
-print(len(LeadQuestion))
-print(len(LastQuestion))
-print(len(subjects))
+# print(len(LeadSentence))
+# print(len(LeadQuestion))
+# print(len(LastQuestion))
+# print(len(subjects))
 scoresLeadSentenceJSON = rouge.get_scores(LeadSentence, subjects)
 scoresLeadQuestionJSON = rouge.get_scores(LeadQuestion, subjects)
 scoresLastQuestionJSON = rouge.get_scores(LastQuestion, subjects)
@@ -192,25 +196,52 @@ for item in scoresLastQuestionJSON:
     #extract an element in the response
     rouge2fLastQuestion.append(respLastQuestion['rouge-2']['f'])
 
-# print(rouge2fLeadSentence)
-# print(rouge2fLeadQuestion)
-# print(rouge2fLastQuestion)
-
+print('Lead Sentence: ', rouge2fLeadSentence)
+print('Lead Question: ', rouge2fLeadQuestion)
+print('Last Question: ',rouge2fLastQuestion)
+print('===================================')
 RougeScore = pd.DataFrame({'LeadSentence':rouge2fLeadSentence, 'LeadQuestion':rouge2fLeadQuestion, 'LastQuestion':rouge2fLastQuestion})
 RougeScore['max_value'] = RougeScore.max(axis=1)
 RougeScore['max_question'] = RougeScore.idxmax(axis=1)
-# print(RougeScore)
+print(RougeScore)
 print('===================================')
 
 BestRougeSummary = []
+intialSentence = []
+intialQuestion = []
 print('Best Summary according to Rouge-2 F Score: ')
 for i in range(len(subjects)):
     if RougeScore['max_question'].iloc[i] == 'LeadSentence':
         BestRougeSummary.append(LeadSentence[i])
+        intialSentence.append(1)
+        intialQuestion.append(0)
     elif RougeScore['max_question'].iloc[i] == 'LeadQuestion':
         BestRougeSummary.append(LeadQuestion[i])
+        intialSentence.append(0)
+        intialQuestion.append(1)
     else:
-        BestRougeSummary.append(LastQuestion[i]) 
+        BestRougeSummary.append(LastQuestion[i])
+        intialSentence.append(0)
+        intialQuestion.append(0) 
 
-TrainingSet = pd.DataFrame({'content':texts, 'subject':BestRougeSummary})
-print(TrainingSet)
+SVMSet = pd.DataFrame({'content':textsdummy, 'subject':BestRougeSummary, 'initialSentence': intialSentence, 'initialQuestion': intialQuestion})
+print(SVMSet)
+classified = []
+for i in range(len(SVMSet)):
+    if SVMSet['subject'].iloc[i].count(' ') > 4:
+        classified.append(1)
+    else:
+        classified.append(0)
+SVMSet['classified'] = pd.Series(classified).values
+
+print(SVMSet['content'], SVMSet['subject'], SVMSet['classified'])
+features = ['initialSentence', 'initialQuestion']
+X = SVMSet.loc[:, features].values
+y = SVMSet.loc[:,['classified']].values
+# print(type(y))
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
+model = svm.SVC(kernel='linear')
+model.fit(X_train, np.ravel(y_train,order='C'))
+print(model.score(X_train, y_train))
+predicted= model.predict(X_test)
+print(predicted)
